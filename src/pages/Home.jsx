@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import ShowTasks from "../components/ShowTasks";
 import { useState, useEffect } from "react";
-import data from "../helper/starterData";
+// import data from "../helper/starterData";
 
 const Home = () => {
   // const [tasks, setTasks] = useState(data);
@@ -13,19 +13,40 @@ const Home = () => {
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log(tasks.length);
   }, [tasks]);
   // tasks.map((item) => {
   //   const {id, task, day} = item
   //   console.log(id, task, day);
   // })
-  const changeIsDone = (id) => {
-    const newTasks = [...tasks];
-    newTasks.forEach((element) => {
-      if (element.id === id) {
-        element.isDone = !element.isDone;
+  const changeIsDone = (id, e) => {
+    if (e.target.className !== "removeIcon") {
+      const newTasks = [...tasks];
+      newTasks.forEach((element) => {
+        if (element.id === id) {
+          element.isDone = !element.isDone;
+        }
+      });
+      setTasks(newTasks);
+    }
+  };
+
+  const handleRemove1 = (id) => {
+    // if (e.target.className === "removeIcon") {
+    //   const tempArray = [...tasks];
+    //   const a = tempArray.filter((item) => item.task !== e.target.value);
+    //   e.target.parentNode.parentNode.remove();
+    //   console.log(e.target.innerText);
+    // }
+    const tempArray = [];
+    tasks.forEach((item) => {
+      if (item.id !== id) {
+        tempArray.push(item);
       }
     });
-    setTasks(newTasks);
+    console.log(tempArray);
+    setTasks(tempArray);
+    // console.log(tasks);
   };
 
   const handleRemove = (e) => {
@@ -51,6 +72,7 @@ const Home = () => {
             isDone={isDone}
             changeIsDone={changeIsDone}
             handleRemove={handleRemove}
+            handleRemove1={handleRemove1}
           />
         );
       })}
