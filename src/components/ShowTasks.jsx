@@ -7,7 +7,7 @@ const ShowTasks = ({ id, task, day, isDone, changeIsDone, handleRemove }) => {
     <div className="task" onClick={() => changeIsDone(id)}>
       {/* <p>{id}</p> */}
       <div>
-        <h1 style={isDone ? { color: "grey" } : { color: "green" }}>{task}</h1>
+        <h1 style={isDone ? { color: "grey", textDecoration:'line-through' } : { color: "green" }}>{task}</h1>
         <h3>{day}</h3>
       </div>
       <div>
